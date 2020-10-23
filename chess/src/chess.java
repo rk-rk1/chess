@@ -7,6 +7,7 @@ public class chess {
         chess obj = new chess();
         System.out.println("ksj");
         System.out.println(obj.inplayspace(1,-1));
+        //bruh
 
 
 
