@@ -5,9 +5,11 @@ public class chess {
     }
     public static void main(String args[]){
         chess obj = new chess();
+        Piece piece = new Piece(false, true);
+
+
         System.out.println("ksj");
         System.out.println(obj.inplayspace(1,-1));
-        //bruh
 
 
 
