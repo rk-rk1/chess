@@ -143,9 +143,11 @@ public class chess {
         }
         board[0][1]= new Knight(true,true);
         board[0][6]= new Knight(true,true);
-        board[7][1]= new Knight(true,true);
-        board[7][6]= new Knight(true,true);
+        board[7][1]= new Knight(false,true);
+        board[7][6]= new Knight(false,true);
 
+        board[0][3]= new King(true,true);
+        board[7][3]= new King(false,true);
         //changing the char array to mach with the positions of the ponds
         obj.printBoard(board);
         Position P1 = new Position(2, 3);
