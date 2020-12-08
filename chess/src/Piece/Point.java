@@ -2,7 +2,7 @@ package Piece;
 
 public class Point {
     private final int x, y;
-    private final boolean islinear, mayBeEnemy, mayBeEmty;
+    private final boolean islinear, mayBeEnemy, mayBeEmpty;
 
     public int getX() {
         return x;
@@ -16,34 +16,33 @@ public class Point {
     public boolean getMayBeEnemy(){
         return mayBeEnemy;
     }
-    public boolean getMayBeEmty(){
-        return mayBeEmty;
+    public boolean getMayBeEmpty(){
+        return mayBeEmpty;
     }
 
-    public Point(int x, int y, boolean islinear, boolean mayBeEnemy, boolean mayBeEmty){
+    public Point(int x, int y, boolean islinear, boolean mayBeEnemy, boolean mayBeEmpty){
         //do a throw
-        if(!mayBeEnemy && !mayBeEmty){
+        if(!mayBeEnemy && !mayBeEmpty){
             throw new IllegalArgumentException("declared Point is not movable");
         }
         this.x=x;
         this.y=y;
         this.islinear=islinear;
         this.mayBeEnemy=mayBeEnemy;
-        this.mayBeEmty=mayBeEmty;
+        this.mayBeEmpty = mayBeEmpty;
         if(islinear && !(x==y || x==0 || y==0)){
             throw new IllegalArgumentException("declared point is not linear but is declared as such");
 
         }
     }
-    public Point(){
-        this(0,0,false,false,false);
+    public Point(){ this(0,0,false,false,false);
     }
     public Point(Point copy){
-        this(copy.getX(), copy.getY(), copy.getIslinear(), copy.getMayBeEnemy(), copy.getMayBeEmty());
+        this(copy.getX(), copy.getY(), copy.getIslinear(), copy.getMayBeEnemy(), copy.getMayBeEmpty());
     }
 
     public String toString(){
-        return String.format("(%d, %d, Is linear %b, %b, %b", getX(), getY(), getIslinear(), getMayBeEnemy(), getMayBeEmty());
+        return String.format("(%d, %d, Is linear %b, %b, %b", getX(), getY(), getIslinear(), getMayBeEnemy(), getMayBeEmpty());
     }
 
 }

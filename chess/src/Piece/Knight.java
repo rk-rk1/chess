@@ -5,10 +5,10 @@ public class Knight extends Piece{
     public Knight(boolean iswhite, boolean ispiece) {
         super(iswhite, ispiece);
         if (iswhite){
-            setRepesantation("nw ");
+            setRepresentation("nw ");
         }
         else {
-            setRepesantation("nb ");
+            setRepresentation("nb ");
         }
     }
 

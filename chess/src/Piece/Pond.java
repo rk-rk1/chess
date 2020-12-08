@@ -3,10 +3,10 @@ public class Pond extends Piece {
     public Pond(boolean iswhite, boolean ispiece) {
         super(iswhite, ispiece);
         if (iswhite){
-            setRepesantation("pw ");
+            setRepresentation("pw ");
         }
         else {
-            setRepesantation("pb ");
+            setRepresentation("pb ");
         }
     }
 

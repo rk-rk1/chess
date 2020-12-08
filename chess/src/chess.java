@@ -27,7 +27,7 @@ public class chess {
             ret = insertXY();// can be from (-1, -1) to (rows,columns)
         }
         catch (InputMismatchException ime){
-            System.out.println("cordinates of x and y must be integers");
+            System.out.println("coordinates of x and y must be integers");
             ret = new Position(-2,-2); //Position(-2,-2) gives the caller method the info that the insert is not successful
         }
         catch (IllegalArgumentException iae){
@@ -87,31 +87,35 @@ public class chess {
                     PiecePosition=new Position(-2,-2);
                     break;
                 }
-
-                boolean unsuccessful =true;
-                for (int i = 0; i <getPiece(a, PiecePosition).moves().length; i++) {
+                boolean unsuccessful=true;
+                for (int i = 0; i < getPiece(a, PiecePosition).moves().length; i++) {
                     Position sum = new Position(PiecePosition.sumPoint(selected.moves()[i]));
                     System.out.println(sum);// remove after doing it
+
+
                     if (sum.equals(MoveToP)) {
                         System.out.println(PiecePosition.sumPoint(selected.moves()[i]) + "1"); // remove after doing it
                         if (!selected.moves()[i].getIslinear()) {
                             System.out.println(PiecePosition.sumPoint(selected.moves()[i]) + "2"); // remove after doing it
-                            if ((selected.moves()[i].getMayBeEmty() && !getPiece(a, MoveToP).getIspiece()) ||
+                            if ((selected.moves()[i].getMayBeEmpty() && !getPiece(a, MoveToP).getIspiece()) ||
                                     (selected.moves()[i].getMayBeEnemy() && getPiece(a, MoveToP).getIswhite() == !WhitesTurn)) {
                                 System.out.println(PiecePosition.sumPoint(selected.moves()[i]) + "3"); // remove after doing it
-                                System.out.println("turn in progres"); // remove after doing it
+                                System.out.println("turn in progress"); // remove after doing it
                                 setPiece(a, MoveToP, selected);
                                 setPiece(a, PiecePosition, new Emtyspace());
                                 unsuccessful=false;
                                 break;
                             }
                         } else {
-                            //later
+                            
                         }
+                        // if it is available to move but for some reason can't, this is to end the cycle, currently 19 lines above
+                        MoveToP = new Position(-2,-2);
+                        System.out.println("invalid input please input again");
+                        break;
                     }
                 }
-
-                if(unsuccessful){
+                if (unsuccessful){
                     MoveToP = new Position(-2,-2);
                     System.out.println("invalid input please input again");
                 }
@@ -120,9 +124,9 @@ public class chess {
     }
 
     public void printBoard(Piece[][] b){
-        for(int i=0; i<8; i++){
-            for(int j=0; j<8; j++){
-                System.out.print(b[i][j].getRepesantation());
+        for(int i=0; i<rows; i++){
+            for(int j=0; j<columns; j++){
+                System.out.print(b[i][j].getRepresentation());
             }
             System.out.println();
         }
@@ -136,7 +140,7 @@ public class chess {
                 board[i][j] = new Emtyspace();
             }
         }
-        //inserts the ponds and knights; white is top, black is bottom
+        //inserts the ponds and knights and kings; white is top, black is bottom;
         for(int i=0; i<board.length; i++){
             board[1][i] = new Pond(true, true);
             board[6][i] = new Pond(false, true);
@@ -148,19 +152,19 @@ public class chess {
 
         board[0][3]= new King(true,true);
         board[7][3]= new King(false,true);
-        //changing the char array to mach with the positions of the ponds
-        obj.printBoard(board);
-        Position P1 = new Position(2, 3);
-        Position P2 = new Position(2, 2);
-        System.out.println(P1.getX());
-        System.out.println(P2.getX());
-        System.out.println(P1.equals(P2));
+
+        board[0][0]= new Rook(true,true);
+        board[0][7]= new Rook(true,true);
+        board[7][0]= new Rook(false,true);
+        board[7][7]= new Rook(false,true);
+        // main game cycle
         boolean isWhiteTurn=true;
         while(true){
+            obj.printBoard(board);
             obj.turn(board, isWhiteTurn);
             if (obj.endgame) return;
-            obj.printBoard(board);
             isWhiteTurn=!isWhiteTurn;
         }
+
     }
 }
