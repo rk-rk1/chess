@@ -39,6 +39,8 @@ public class chess {
     private Position insertXY(){
         int x = new Scanner(System.in).nextInt();
         int y = new Scanner(System.in).nextInt();
+        y--;
+        x--;
         if(x==-1&&y==-1){
             return new Position(-1, -1); //enter -1 -1 to end/surrender/save
         }
@@ -98,7 +100,7 @@ public class chess {
                         if (!selected.moves()[i].getIslinear()) {
                             System.out.println(PiecePosition.sumPoint(selected.moves()[i]) + "2"); // remove after doing it
                             if ((selected.moves()[i].getMayBeEmpty() && !getPiece(a, MoveToP).getIspiece()) ||
-                                    (selected.moves()[i].getMayBeEnemy() && getPiece(a, MoveToP).getIswhite() == !WhitesTurn)) {
+                                    (selected.moves()[i].getMayBeEnemy() && getPiece(a, MoveToP).getIswhite() == !WhitesTurn&&getPiece(a, MoveToP).getIspiece())) {
                                 System.out.println(PiecePosition.sumPoint(selected.moves()[i]) + "3"); // remove after doing it
                                 System.out.println("turn in progress"); // remove after doing it
                                 setPiece(a, MoveToP, selected);
@@ -107,7 +109,10 @@ public class chess {
                                 break;
                             }
                         } else {
-                            
+                            //if (selected.moves()[i].getX()<0){
+                              //  if(selected.moves())
+                            }
+                            ;
                         }
                         // if it is available to move but for some reason can't, this is to end the cycle, currently 19 lines above
                         MoveToP = new Position(-2,-2);
