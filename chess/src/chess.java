@@ -94,9 +94,10 @@ public class chess {
                     break;
                 }
                 boolean unsuccessful = true;
-                Movecheck: for (int i = 0; i < getPiece(a, PiecePosition).moves().length; i++) {
-                    if(PiecePosition.getX() + selected.moves()[i].getX()<0 || PiecePosition.getY() + selected.moves()[i].getY()<0 || 
-                            PiecePosition.getY() + selected.moves()[i].getY()>columns-1 || PiecePosition.getX() + selected.moves()[i].getX()>rows-1){
+                Movecheck:
+                for (int i = 0; i < getPiece(a, PiecePosition).moves().length; i++) {
+                    if (PiecePosition.getX() + selected.moves()[i].getX() < 0 || PiecePosition.getY() + selected.moves()[i].getY() < 0
+                            || PiecePosition.getY() + selected.moves()[i].getY() > columns - 1 || PiecePosition.getX() + selected.moves()[i].getX() > rows - 1) {
                         continue;
                     }
                     Position sum = new Position(PiecePosition.sumPoint(selected.moves()[i]));
@@ -120,11 +121,11 @@ public class chess {
                             //  if(selected.moves())
                             Point change = new Point(200, 200, true, true, true);
 
-                            Position pos = new Position(MoveToP.minPoint(PiecePosition));
+                            Point pos = new Point(MoveToP.getX() - PiecePosition.getX(), MoveToP.getY() - PiecePosition.getY(), true, true, true);
                             if (pos.getX() == 0) {
                                 if (pos.getY() == 0) {
-                                    throw new RuntimeException("please move your piece");
-                                    //make a thing to enter moves again
+                                    MoveToP = new Position(-2, -2);
+                                    continue;
                                 } else if (pos.getY() > 0) {
                                     change = new Point(0, 1, true, true, true);
                                 } else if (pos.getY() < 0) {
@@ -153,7 +154,7 @@ public class chess {
                             System.out.println(change + "*************************************************");
                             for (Position j = new Position(PiecePosition.sumPoint(change)); !j.equals(MoveToP); j = j.sumPoint(change)) {
                                 System.out.println("change " + j);
-                                if(getPiece(a, j).getIspiece()){
+                                if (getPiece(a, j).getIspiece()) {
                                     MoveToP = new Position(-2, -2);
                                     System.out.println("text");
                                     break Movecheck;
@@ -192,6 +193,32 @@ public class chess {
         }
     }
 
+    public void winCondition(Piece[][] b) {
+        boolean whiteKingAlive = false;
+        boolean blackKingAlive = false;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                if (b[i][j].getRepresentation().equals("kw ")) {
+                    whiteKingAlive = true;
+                }
+                if (b[i][j].getRepresentation().equals("kb ")) {
+                    blackKingAlive = true;
+                }
+            }
+        }
+        if (!whiteKingAlive) {
+            System.out.println("black wins.");
+            endgame = true;
+            return;
+        }
+        if (!blackKingAlive) {
+            System.out.println("white wins.");
+            endgame = true;
+            return;
+
+        }
+    }
+
     public static void main(String[] args) {
         chess obj = new chess();
         Piece[][] board = new Piece[obj.columns][obj.rows];
@@ -217,11 +244,22 @@ public class chess {
         board[0][7] = new Rook(true, true);
         board[7][0] = new Rook(false, true);
         board[7][7] = new Rook(false, true);
+
+        board[0][2] = new Bishop(true, true);
+        board[0][5] = new Bishop(true, true);
+        board[7][2] = new Bishop(false, true);
+        board[7][5] = new Bishop(false, true);
+
+        board[0][4] = new Queen(true, true);
+        board[7][4] = new Queen(false, true);
         // main game cycle
         boolean isWhiteTurn = true;
+        obj.printBoard(board);
         while (true) {
-            obj.printBoard(board);
+            
             obj.turn(board, isWhiteTurn);
+            obj.printBoard(board);
+            obj.winCondition(board);
             if (obj.endgame) {
                 return;
             }
