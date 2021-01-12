@@ -1,5 +1,8 @@
 package Piece;
 
+import static java.lang.Math.abs;
+
+
 public class Point {
     private final int x, y;
     private final boolean islinear, mayBeEnemy, mayBeEmpty;
@@ -30,7 +33,7 @@ public class Point {
         this.islinear=islinear;
         this.mayBeEnemy=mayBeEnemy;
         this.mayBeEmpty = mayBeEmpty;
-        if(islinear && !(x==y || x==0 || y==0)){
+        if(islinear && !(abs(x)==abs(y) || x==0 || y==0)){
             throw new IllegalArgumentException("declared point is not linear but is declared as such");
 
         }

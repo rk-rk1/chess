@@ -1,12 +1,12 @@
 package Piece;
 
 public class King extends Piece{
+    
     public King(boolean iswhite, boolean ispiece) {
         super(iswhite, ispiece);
         if (iswhite){
             setRepresentation("kw ");
-        }
-        else {
+        } else {
             setRepresentation("kb ");
         }
     }
